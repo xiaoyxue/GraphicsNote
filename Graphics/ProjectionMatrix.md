@@ -100,7 +100,7 @@ $$
 \left\{
 \begin{gathered}
 \frac{nA + B}{n} = -1\\
-\frac{fA + b}{f} = 1
+\frac{fA + B}{f} = 1
 \end{gathered}
 \right.
 \Rightarrow
