@@ -98,10 +98,10 @@ $$
 有裁剪锥体得出，在$n$处坐标为被映射为$-1$，在$f$处坐标映射成$1$
 $$
 \left\{
-\begin{gathered}
-\frac{nA + B}{n} = -1\\
-\frac{fA + B}{f} = 1
-\end{gathered}
+\begin{aligned}{}
+\frac{nA + B}{n} & = & -1\\
+\frac{fA + B}{f} & = & 1
+\end{aligned}
 \right.
 \Rightarrow
 \left\{
