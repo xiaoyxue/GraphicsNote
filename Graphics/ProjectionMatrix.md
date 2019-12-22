@@ -43,8 +43,8 @@ $$
 M_{proj} = 
 \left[
 \begin{gathered}
-\frac{2filmDis}{r - l} & 0 & 0 & -\frac{r + l}{r - l}\\
-0 & \frac{2filmDis}{t - b} & 0 & -\frac{t + b}{t - b}\\
+\frac{2filmDis}{r - l} & 0  & -\frac{r + l}{r - l} & 0\\
+0 & \frac{2filmDis}{t - b} & -\frac{t + b}{t - b} & 0\\
 0 & 0 & A & B\\
 0 & 0 & 1 & 0
 \end{gathered}
@@ -62,8 +62,8 @@ z_N\\
 w_N
 \end{gathered}\right] = 
 \left[\begin{gathered}
-\frac{2filmDis}{r - l} & 0 & 0 & -\frac{r + l}{r - l}\\
-0 & \frac{2filmDis}{t - b} & 0 & -\frac{t + b}{t - b}\\
+\frac{2filmDis}{r - l} & 0 & -\frac{r + l}{r - l} & 0\\
+0 & \frac{2filmDis}{t - b} & -\frac{t + b}{t - b} & 0\\
 0 & 0 & A & B\\
 0 & 0 & 1 & 0
 \end{gathered}\right]
@@ -74,10 +74,10 @@ z\\
 1
 \end{bmatrix} =
 \left[\begin{gathered}
-\frac{2x_p}{r - l} - \frac{r + l}{r - l}\\
-\frac{2y_p}{t - b} - \frac{t + b}{t - b}\\
-z_pA + B\\
-z_p
+\frac{2filmDis}{r - l}\cdot x - \frac{r + l}{r - l} \cdot z\\
+\frac{2filmDis}{t - b} \cdot y - \frac{t + b}{t - b}\cdot z\\
+zA + B\\
+z
 \end{gathered}\right]\Leftrightarrow
 $$
 
@@ -89,9 +89,9 @@ z_N/w_N\\
 1
 \end{gathered}\right] = 
 \left[\begin{gathered}
-\frac{2x_p}{r - l}\cdot\frac{1}{z_p} - \frac{r + l}{r - l}\cdot\frac{1}{z_p}\\
-\frac{2y_p}{t - b}\cdot\frac{1}{z_p} - \frac{t + b}{t - b}\cdot\frac{1}{z_p}\\
-(z_pA + B) / z_p \\
+\frac{2x}{r - l}\cdot\frac{1}{z} - \frac{r + l}{r - l}\\
+\frac{2y}{t - b}\cdot\frac{1}{z} - \frac{t + b}{t - b}\\
+(zA + B) / z \\
 1
 \end{gathered}\right]
 $$
@@ -118,8 +118,8 @@ $$
 M_{proj} = 
 \left[
 \begin{gathered}
-\frac{2filmDis}{r - l} & 0 & 0 & -\frac{r + l}{r - l}\\
-0 & \frac{2filmDis}{t - b} & 0 & -\frac{t + b}{t - b}\\
+\frac{2filmDis}{r - l} & 0 & -\frac{r + l}{r - l} & 0\\
+0 & \frac{2filmDis}{t - b} & -\frac{t + b}{t - b} & 0\\
 0 & 0 & \frac{f + n}{f - n} & \frac{2nf}{f - n}\\
 0 & 0 & 1 & 0
 \end{gathered}
