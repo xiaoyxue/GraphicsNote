@@ -55,5 +55,5 @@ L_i = \frac{d^2\Phi_i}{d\omega_i\cdot dA^m\cdot |\textbf{i}\cdot\textbf{m}|} = \
 $$
 带入上式可以得到
 $$
-f_s(\textbf{i},\textbf{o}) = \frac{|\textbf{i}\cdot\textbf{m}|}{|\textbf{i}\cdot\textbf{n}| \cdot |\textbf{o}\cdot\textbf{n}|} \cdot \rho(\textbf{i}, \textbf{o})\cdot D(\textbf{m}) \cdot G(\textbf{i}, \textbf{o}, \textbf{m}) \cdot \frac{d\omega_m}{d\omega_i}
+f_s(\textbf{i},\textbf{o}) = \frac{|\textbf{i}\cdot\textbf{m}|}{|\textbf{i}\cdot\textbf{n}| \cdot |\textbf{o}\cdot\textbf{n}|} \cdot \rho(\textbf{i}, \textbf{o})\cdot D(\textbf{m}) \cdot G(\textbf{i}, \textbf{o}, \textbf{m}) \cdot \frac{d\omega_m}{d\omega_o}
 $$
