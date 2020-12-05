@@ -2,7 +2,7 @@
 ## Graphics Note
 
 ### 投影矩阵
-推到从camera space($\Omega_{cam}$)到NDC space($\Omega_{NDC}$)的投影矩阵，这里NDC space的$x,y,z$的范围都是$[-1,1]$。假设在camera space里的坐标为 $(x,y,x)$，我们把这个点投影到film上，投影得到上的坐标为$(x_p,y_p,z_p)$，在NDC space中的坐标为$(x_N, y_N,z_N)，$film距离camera的距离为$filmDis$，根据$fovy$以及$filmDis$可以计算出film在camera space里的横坐标范围为$[l,r]$，纵坐标范围是$[b,t]$，定义投影矩阵$M_{proj}: \Omega_{cam}\to \Omega_{NDC}$。并且这里假设近裁剪端和远裁剪端到camera的距离分别为$n,f$(这里需要了解齐次坐标的知识)
+推到从camera space($\Omega_{cam}$)到NDC space($\Omega_{NDC}$)的投影矩阵，这里NDC space的$x,y,z$的范围都是$[-1,1]$。假设在camera space里的坐标为 $(x,y,x)$，我们把这个点投影到film上$(x_p,y_p,z_p)$，在NDC space中的坐标为$(x_N, y_N,z_N)，$film距离camera的距离为$filmDis$，根据$fovy$以及$filmDis$可以计算出film在camera space里的横坐标范围为$[l,r]$，纵坐标范围是$[b,t]$，定义投影矩阵$M_{proj}: \Omega_{cam}\to \Omega_{NDC}$。并且这里假设近裁剪端和远裁剪端到camera的距离分别为$n,f$(这里需要了解齐次坐标的知识)
 
 由几何关系
 $$
