@@ -132,12 +132,18 @@ M_{proj} =
 \end{displaymath}
 \\
 
-一般情况下$r = -l$，$t = -b$，因此投影矩阵可以简化成:
+一般情况下$r = -l$，$t = -b$，并且$t=filmDis \cdot \tan{(fovy/2)}$，$r=t \cdot aspect$因此投影矩阵可以简化成:
 \begin{displaymath}
 M_{proj} = 
 \begin{bmatrix}
-\frac{1}{r} & 0 & 0 & 0\\
-0 & \frac{1}{t} & 0 & 0\\
+\frac{filmDis}{r} & 0 & 0 & 0\\
+0 & \frac{filmDis}{t} & 0 & 0\\
+0 & 0 & \frac{f + n}{f - n} & \frac{2nf}{f - n}\\
+0 & 0 & 1 & 0
+\end{bmatrix} = 
+\begin{bmatrix}
+\frac{1}{\tan{(fovy/2)} \cdot aspect} & 0 & 0 & 0\\
+0 & \frac{1}{\tan{(fovy/2)}} & 0 & 0\\
 0 & 0 & \frac{f + n}{f - n} & \frac{2nf}{f - n}\\
 0 & 0 & 1 & 0
 \end{bmatrix}
