@@ -1,9 +1,9 @@
 \section{Transform}
 \subsection{Projection}
+投影是指从camera space($\Omega_{cam}$)到NDC space($\Omega_{NDC}$)的变换，其中NDC space的$x,y,z$的范围都是$[-1,1]$。假设某个点在camera space里的坐标为 $(x,y,x)$，我们把这个点投影到film上$(x_p,y_p,z_p)$，然后再经过normalization，得到NDC space中的坐标$(x_N, y_N,z_N)$。定义film到camera的距离为$filmDis$，根据$fovy$，$filmDis$以及$aspect$，可以计算出film在camera space里的横坐标范围$[l,r]$，纵坐标范围$[b,t]$。定义投影矩阵$M_{proj}: \Omega_{cam}\to \Omega_{NDC}$，$\bold{x} = [x, y, z, 1]^T$，$\bold{x}_p = [x_p, y_p, z_p, 1]^T$，$\bold{x}_N = [x_N, y_N, z_N, 1]^T$ (这里需要了解齐次坐标的知识)。由投影矩阵的定义可得$\bold{x}_N = M_{proj}\bold{x}$。并且这里假设近裁剪端和远裁剪端到camera的距离分别为$n,f$
+\subsubsection{Orthographic}
 \subsubsection{Perspective}
-\par
-推导从camera space($\Omega_{cam}$)到NDC space($\Omega_{NDC}$)的投影矩阵，这里NDC space的$x,y,z$的范围都是$[-1,1]$。假设在camera space里的坐标为 $(x,y,x)$，我们把这个点投影到film上$(x_p,y_p,z_p)$，在NDC space中的坐标为$(x_N, y_N,z_N)，$film距离camera的距离为$filmDis$，根据$fovy$以及$filmDis$可以计算出film在camera space里的横坐标范围为$[l,r]$，纵坐标范围是$[b,t]$，定义投影矩阵$M_{proj}: \Omega_{cam}\to \Omega_{NDC}$。并且这里假设近裁剪端和远裁剪端到camera的距离分别为$n,f$(这里需要了解齐次坐标的知识)
-
+并且这里假设近裁剪端和远裁剪端到camera的距离分别为$n,f$(这里需要了解齐次坐标的知识)
 由几何关系
 \begin{displaymath}
 \frac{x_p}{x} = \frac{y_p}{y} = \frac{filmDis}{z}
@@ -53,12 +53,12 @@ M_{proj} =
 \end{displaymath}
 其中$A, B$为一个待定的元素，注意这里的投影矩阵其实并不是唯一的，还有其他的构造方法。
 
-我们写出从camera space到NDC space的表达式
+我们写出从camera space到NDC space的表达，然后再进行normalization：
 \begin{displaymath}
 \begin{bmatrix}
-x_N\\
-y_N\\
-z_N\\
+x_N'\\
+y_N'\\
+z_N'\\
 w_N
 \end{bmatrix} = 
 \begin{bmatrix}
@@ -83,9 +83,15 @@ z
 
 \begin{displaymath}
 \begin{bmatrix}
-x_N/w_N\\
-y_N/w_N\\
-z_N/w_N\\
+x_N\\
+y_N\\
+z_N\\
+1
+\end{bmatrix} = 
+\begin{bmatrix}
+x_N'/w_N\\
+y_N'/w_N\\
+z_N'/w_N\\
 1
 \end{bmatrix} = 
 \begin{bmatrix}
