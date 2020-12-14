@@ -5,6 +5,132 @@
 \subsection{Projection}
 投影是指从camera space($\Omega_{cam}$)到NDC space($\Omega_{NDC}$)的变换，其中NDC space的$x,y,z$的范围都是$[-1,1]$。假设某个点在camera space里的坐标为 $(x,y,x)$，我们把这个点投影到film上$(x_p,y_p,z_p)$，然后再经过normalization，得到NDC space中的坐标$(x_N, y_N,z_N)$。定义film到camera的距离为$filmDis$，根据$fovy$，$filmDis$以及$aspect$，可以计算出film在camera space里的横坐标范围$[l,r]$，纵坐标范围$[b,t]$。定义投影矩阵$M_{proj}: \Omega_{cam}\to \Omega_{NDC}$，$\bold{x} = [x, y, z, 1]^T$，$\bold{x}_p = [x_p, y_p, z_p, 1]^T$，$\bold{x}_N = [x_N, y_N, z_N, 1]^T$ (这里需要了解齐次坐标的知识)。由投影矩阵的定义可得$\bold{x}_N = M_{proj}\bold{x}$。并且这里假设近裁剪端和远裁剪端到camera的距离分别为$n,f$
 \subsubsection{Orthographic}
+由几何关系可得
+\begin{gather*}
+x_p = x\\
+y_p = y
+\end{gather*}
+对于$x_p$我们可以得到以下推导
+\begin{gather*}
+l \leq x_p \leq r\\
+0 \leq x_p - l \leq r-l\\
+0 \leq \frac{x_p - l}{r - l} \leq 1\\
+0 \leq 2\frac{x_p - l}{r - l} \leq 2\\
+-1 \leq \frac{2 x_p}{r-l} - \frac{r + l}{r - l} \leq 1
+\end{gather*}
+
+同理也可以得到
+\begin{displaymath}
+-1 \leq \frac{2y_p}{t - b} - \frac{t + b}{t - b} \leq 1
+\end{displaymath}
+\\
+
+总结一下，我们可以的得到关于$x, y$的投影后的关系
+\begin{displaymath}
+\left\{
+\begin{gathered}
+-1 \leq \frac{2}{r - l}\cdot x - \frac{r + l}{r - l} \leq 1\\
+-1 \leq \frac{2}{t - b}\cdot y - \frac{t + b}{t - b} \leq 1
+\end{gathered}
+\right.
+\end{displaymath}
+\\
+
+由此我们可以构造出投影矩阵的一部分
+\begin{displaymath}
+M_{proj} = 
+\begin{bmatrix}
+\frac{2}{r - l} & 0  & -\frac{r + l}{r - l} & 0\\
+0 & \frac{2}{t - b} & -\frac{t + b}{t - b} & 0\\
+0 & 0 & A & C\\
+0 & 0 & B & D
+\end{bmatrix}
+\end{displaymath}
+其中$A, B, C, D$为待定的元素，注意这里的投影矩阵其实并不是唯一的，还有其他的构造方法。
+\par
+我们写出投影变换的公式
+\begin{displaymath}
+M_{proj}\bold{x} =
+\begin{bmatrix}
+\frac{2}{r - l} & 0  & 0 & -\frac{r + l}{r - l}\\
+0 & \frac{2}{t - b} & 0 & -\frac{t + b}{t - b}\\
+0 & 0 & A & C\\
+0 & 0 & B & D
+\end{bmatrix} 
+\begin{bmatrix}
+x\\
+y\\
+z\\
+1
+\end{bmatrix} =
+\begin{bmatrix}
+\frac{2}{r - l} \cdot x - \frac{r + l}{r - l}\\
+\frac{2}{t - b} \cdot y - \frac{t + b}{t - b}\\
+Az + C\\
+Bz + D
+\end{bmatrix} =
+\begin{bmatrix}
+x_N\\
+y_N\\
+Az + C\\
+Bz + D
+\end{bmatrix}
+\end{displaymath}
+这里我们直接令$B = 0, D = 1$可得
+\begin{displaymath}
+M_{proj}\bold{x} = 
+\begin{bmatrix}
+x_N\\
+y_N\\
+Az+C\\
+1
+\end{bmatrix} = 
+\begin{bmatrix}
+x_N\\
+y_N\\
+z_N\\
+1
+\end{bmatrix}
+\end{displaymath}
+由裁剪关系可知，在n处坐标被映射为-1，在f处坐标映射成1
+\begin{displaymath}
+\left\{
+\begin{aligned}{}
+An + C & = & -1\\
+Af + C & = & 1
+\end{aligned}
+\right.
+\Longrightarrow
+\left\{
+\begin{aligned}
+&A = \frac{2}{f - n}\\
+&B = -\frac{f + n}{f - n}
+\end{aligned}
+\right.
+\end{displaymath}
+\\
+\par
+最后得到完整的投影矩阵
+\begin{displaymath}
+M_{proj} = 
+\begin{bmatrix}
+\frac{2}{r - l} & 0 & 0 & -\frac{r + l}{r - l}\\
+0 & \frac{2}{t - b} & 0 & -\frac{t + b}{t - b}\\
+0 & 0 & \frac{2}{f - n} & -\frac{f + n}{f - n}\\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\end{displaymath}
+\\
+一般情况下$r = -l$，$t = -b$，并且令$w = 2r$(film的宽)，$h = 2t$(film的高)可得
+\begin{displaymath}
+M_{proj} = 
+\begin{bmatrix}
+\frac{1}{w} & 0 & 0 & 0\\
+0 & \frac{1}{h} & 0 & 0\\
+0 & 0 & \frac{2}{f - n} & -\frac{f + n}{f - n}\\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\end{displaymath}
 \subsubsection{Perspective}
 由几何关系
 \begin{displaymath}
@@ -80,7 +206,7 @@ z\\
 \frac{2filmDis}{t - b} \cdot y - \frac{t + b}{t - b}\cdot z\\
 zA + B\\
 z
-\end{gathered}\right]\Leftrightarrow
+\end{gathered}\right]\Longleftrightarrow
 \end{displaymath}
 
 \begin{displaymath}
@@ -112,7 +238,7 @@ z_N'/w_N\\
 \frac{fA + B}{f} & = & 1
 \end{aligned}
 \right.
-\Rightarrow
+\Longrightarrow
 \left\{
 \begin{aligned}
 &A = \frac{f + n}{f - n}\\
