@@ -3,7 +3,7 @@
 \subsection{Scale}
 \subsection{Translation}
 \subsection{Projection}
-投影是指从camera space($\Omega_{cam}$)到NDC space($\Omega_{NDC}$)的变换，其中NDC space的$x,y,z$的范围都是$[-1,1]$。假设某个点在camera space里的坐标为 $(x,y,x)$，我们把这个点投影到film上$(x_p,y_p,z_p)$，然后再经过normalization，得到NDC space中的坐标$(x_N, y_N,z_N)$。定义film到camera的距离为$filmDis$，根据$fovy$，$filmDis$以及$aspect$，可以计算出film在camera space里的横坐标范围$[l,r]$，纵坐标范围$[b,t]$。定义投影矩阵$M_{proj}: \Omega_{cam}\to \Omega_{NDC}$，$\bold{x} = [x, y, z, 1]^T$，$\bold{x}_p = [x_p, y_p, z_p, 1]^T$，$\bold{x}_N = [x_N, y_N, z_N, 1]^T$ (这里需要了解齐次坐标的知识)。由投影矩阵的定义可得$\bold{x}_N = M_{proj}\bold{x}$。并且这里假设近裁剪端和远裁剪端到camera的距离分别为$n,f$
+投影是指从camera space($\Omega_{cam}$)到NDC space($\Omega_{NDC}$)的变换，其中NDC space的$x,y,z$的范围都是$[-1,1]$。假设某个点在camera space里的坐标为 $(x,y,x)$，我们把这个点投影到film上$(x_p,y_p,z_p)$，然后再经过normalization，得到NDC space中的坐标$(x_N, y_N,z_N)$。定义film到camera的距离为$filmDis$，根据$fovy$，$filmDis$以及$aspect\_ratio$(简称$aspect$)，可以计算出film在camera space里的横坐标范围$[l,r]$，纵坐标范围$[b,t]$。定义投影矩阵$M_{proj}: \Omega_{cam}\to \Omega_{NDC}$，$\bold{x} = [x, y, z, 1]^T$，$\bold{x}_p = [x_p, y_p, z_p, 1]^T$，$\bold{x}_N = [x_N, y_N, z_N, 1]^T$ (这里需要了解齐次坐标的知识)。由投影矩阵的定义可得$\bold{x}_N = M_{proj}\bold{x}$。并且这里假设近裁剪端和远裁剪端到camera的距离分别为$n,f$
 \subsubsection{Orthographic}
 由几何关系可得
 \begin{gather*}
