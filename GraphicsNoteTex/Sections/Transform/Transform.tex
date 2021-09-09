@@ -242,7 +242,7 @@ z_N'/w_N\\
 \left\{
 \begin{aligned}
 &A = \frac{f + n}{f - n}\\
-&B = \frac{2nf}{f - n}
+&B = -\frac{2nf}{f - n}
 \end{aligned}
 \right.
 \end{displaymath}
@@ -255,7 +255,7 @@ M_{proj} =
 \begin{bmatrix}
 \frac{2filmDis}{r - l} & 0 & -\frac{r + l}{r - l} & 0\\
 0 & \frac{2filmDis}{t - b} & -\frac{t + b}{t - b} & 0\\
-0 & 0 & \frac{f + n}{f - n} & \frac{2nf}{f - n}\\
+0 & 0 & \frac{f + n}{f - n} & -\frac{2nf}{f - n}\\
 0 & 0 & 1 & 0
 \end{bmatrix}
 \end{displaymath}
@@ -267,13 +267,13 @@ M_{proj} =
 \begin{bmatrix}
 \frac{filmDis}{r} & 0 & 0 & 0\\
 0 & \frac{filmDis}{t} & 0 & 0\\
-0 & 0 & \frac{f + n}{f - n} & \frac{2nf}{f - n}\\
+0 & 0 & \frac{f + n}{f - n} & -\frac{2nf}{f - n}\\
 0 & 0 & 1 & 0
 \end{bmatrix} = 
 \begin{bmatrix}
 \frac{1}{\tan{(fovy/2)} \cdot aspect} & 0 & 0 & 0\\
 0 & \frac{1}{\tan{(fovy/2)}} & 0 & 0\\
-0 & 0 & \frac{f + n}{f - n} & \frac{2nf}{f - n}\\
+0 & 0 & \frac{f + n}{f - n} & -\frac{2nf}{f - n}\\
 0 & 0 & 1 & 0
 \end{bmatrix}
 \end{displaymath}
